@@ -82,7 +82,7 @@ class Attention(nn.Module):
             attn_bias = torch.zeros(T, T, dtype=q.dtype, device=q.device)
             if self.is_causal:
                 assert self.attn_mask is None
-                temp_mask = torch.ones(T, T, dtype=torch.bool).tril(diagonal=0)
+                temp_mask = torch.ones(T, T, dtype=torch.bool, device=q.device).tril(diagonal=0)
                 attn_bias.masked_fill_(temp_mask.logical_not(), float("-inf"))
                 attn_bias.to(q.dtype)
 
